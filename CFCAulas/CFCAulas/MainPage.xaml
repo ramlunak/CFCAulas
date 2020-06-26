@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="CFCAulas.MainPage">
+
+    <StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding }"/>
+                <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="Accent"/>
+                <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="Accent"/>
+                <BoxView Grid.Row="2" Grid.Column="0" BackgroundColor="Accent"/>
+                <BoxView Grid.Row="3" Grid.Column="0" BackgroundColor="Accent"/>
+                <BoxView Grid.Row="4" Grid.Column="0" BackgroundColor="Accent"/>
+            </Grid>
+        </ScrollView>
+            <Button Text="finalizar" Command="{Binding FinalizarCommand}"></Button>
+    </StackLayout>
+
+</ContentPage>
