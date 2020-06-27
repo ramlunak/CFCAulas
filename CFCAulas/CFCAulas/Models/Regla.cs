@@ -20,7 +20,7 @@ namespace CFCAulas.Models
         {
             get
             {
-                return Data.DataSource.Infracciones.Where(x => x.Id == IdPenalidad).First().Nombre;
+                return Data.DataSource.Penalidades.Where(x => x.Id == IdPenalidad).First().Nombre;
             }
         }
         public int IdMedidaAdministrativa { get; set; }
@@ -28,7 +28,7 @@ namespace CFCAulas.Models
         {
             get
             {
-                return Data.DataSource.Infracciones.Where(x => x.Id == IdMedidaAdministrativa).First().Nombre;
+                return Data.DataSource.MedidaAdministrativas.Where(x => x.Id == IdMedidaAdministrativa).First().Nombre;
             }
         }
         public int IdMultiplicador { get; set; }
@@ -36,7 +36,7 @@ namespace CFCAulas.Models
         {
             get
             {
-                return Data.DataSource.Infracciones.Where(x => x.Id == IdMultiplicador).First().Nombre;
+                return Data.DataSource.Multiplicadores.Where(x => x.Id == IdMultiplicador).First().Nombre;
             }
         }
         public int IdObservacion { get; set; }
@@ -44,7 +44,7 @@ namespace CFCAulas.Models
         {
             get
             {
-                return Data.DataSource.Infracciones.Where(x => x.Id == IdObservacion).First().Nombre;
+                return Data.DataSource.Observacions.Where(x => x.Id == IdObservacion).First().Nombre;
             }
         }
     }

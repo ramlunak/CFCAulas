@@ -12,6 +12,7 @@ namespace CFCAulas.Data
         public static List<MedidaAdministrativa> MedidaAdministrativas = new List<MedidaAdministrativa>();
         public static List<Penalidad> Penalidades = new List<Penalidad>();
         public static List<Multiplicador> Multiplicadores = new List<Multiplicador>();
+        public static List<Observacion> Observacions = new List<Observacion>();
 
         static DataSource()
         {
@@ -19,6 +20,7 @@ namespace CFCAulas.Data
             MedidaAdministrativas = GenerarMedidaAdministrativa();
             Penalidades = GenerarPenalidades();
             Multiplicadores = GenerarMultiplicadores();
+            Observacions = GenerarObservacions();
             Reglas = GenerarRegras();
 
         }
@@ -36,7 +38,7 @@ namespace CFCAulas.Data
             {
                 new Infraccion
                 {
-                  Id = 1, Nombre="Art, 253-A. Usar qualquer veiculo para, deliberadamente, interromper, restringir ou perturbar a circulacäo na via sem autorizaqäo do 6rgäo ou entidade de trånsito com circunscriqäo sobre ela"
+                  Id = 1, Nombre="Art, 253-A. Usar qualquer veiculo para, deliberadamente, interromper, restringir ou perturbar a circulação na via sem autorização do orgão ou entidade de tránsito com circunscrição sobre ela"
                 },
                  new Infraccion
                 {
@@ -52,7 +54,7 @@ namespace CFCAulas.Data
                 },
                      new Infraccion
                 {
-                  Id = 5, Nombre="Art. 174. Promover, na via, competiqäo, eventos organizados, exibicäo e demonstraqäo de pericia em manobra de veiculo, ou deles participar, como condutor, sem permissäo da autoridade de trånsito com circunscriqäo sobre a via"
+                  Id = 5, Nombre="Art. 174. Promover, na via, competição, eventos organizados, exibicäo e demonstração de pericia em manobra de veiculo, ou deles participar, como condutor, sem permissäo da autoridade de trånsito com circunscrição sobre a via"
                 }, new Infraccion
                 {
                   Id = 6, Nombre="Art. 175. Utilizar-se de vefculo para demonstrar ou exibir manobra perigosa, mediante arranca-da brusca, derrapagem ou frenagem com deslizamento ou arrastamento de pneus"
@@ -65,7 +67,7 @@ namespace CFCAulas.Data
 
         private static List<MedidaAdministrativa> GenerarMedidaAdministrativa()
         {
-            return new List<MedidaAdministrativa> {
+            return new List<MedidaAdministrativa> {            
             new MedidaAdministrativa
              {
                 Id = 1 , Nombre = "Remoção do veiculo",
@@ -132,18 +134,14 @@ namespace CFCAulas.Data
                 }, new Penalidad
                 {
                     Id = 2,
-                    Nombre = "Multa e suspensão do direito de dirigir por doze meses"
-                },new Penalidad
-                {
-                    Id = 3,
                     Nombre = "Multa e suspensão do direito de dirigir"
                 },new Penalidad
                 {
-                    Id = 4,
+                    Id = 3,
                     Nombre = "Multa"
                 },new Penalidad
                 {
-                    Id = 5,
+                    Id = 4,
                     Nombre = "Multa em (50%) cinquenta por cento do valor da infração de natureza leve"
                 },
             };
@@ -152,7 +150,7 @@ namespace CFCAulas.Data
         private static List<Multiplicador> GenerarMultiplicadores()
         {
             return new List<Multiplicador>
-            {
+            {               
                 new Multiplicador
                 {
                     Id = 1,
@@ -180,5 +178,20 @@ namespace CFCAulas.Data
                 },
             };
         }
+
+        private static List<Observacion> GenerarObservacions()
+        {
+            return new List<Observacion> {              
+               new Observacion{
+                   Id = 1,
+                   Nombre="Obs: Aplica-se a multa agravada em 60 vezes aos organizadores da conduta."
+               },
+                new Observacion{
+                   Id = 2,
+                   Nombre="Obs.: Aplicam-se as mesmas punições ao condutor que ENTREGAR a direção a pessoa nas condições previstas neste artigo."
+               },
+            };
+        }
+
     }
 }

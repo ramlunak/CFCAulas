@@ -3,30 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:CFCAulas.Controls"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
              mc:Ignorable="d"
              x:Class="CFCAulas.MainPage">
 
     <StackLayout>
         <ScrollView VerticalOptions="FillAndExpand">
-            <Grid>
+            <Grid Margin="15">
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="{Binding }"/>
-                <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="Accent"/>
-                <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="Accent"/>
-                <BoxView Grid.Row="2" Grid.Column="0" BackgroundColor="Accent"/>
-                <BoxView Grid.Row="3" Grid.Column="0" BackgroundColor="Accent"/>
-                <BoxView Grid.Row="4" Grid.Column="0" BackgroundColor="Accent"/>
+                
+                <!--INFRACCION-->
+                <controls:CustomLabel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Regla.Infraccion}" TextColor="Black" FontSize="18" />
+                <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="LightGray" HeightRequest="1" />
+
+                <!--PENALIDAD-->
+
+                <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Padding="3,0" >
+                
+                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Penalidade?" TextColor="CadetBlue" />
+                   
+                    <input:RadioButtonGroupView Spacing="10" Margin="5">
+                        <input:RadioButton  TextFontSize="16" Text="{Binding Penalidad}"  />
+                        <input:RadioButton  TextFontSize="16" Text="{Binding Penalidad2}"  />
+                        <input:RadioButton  TextFontSize="16" Text="{Binding Penalidad3}"  />                      
+                    </input:RadioButtonGroupView>
+
+                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Fator agravante?" TextColor="SaddleBrown" />
+                    
+                    <input:RadioButtonGroupView Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand" Margin="5">
+                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador}"  />
+                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador2}"  />
+                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador3}"  />
+                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador4}"  />
+                    </input:RadioButtonGroupView>
+
+                </StackLayout>
+
+                <!--MEDIDA-->
+                <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="LightGray" HeightRequest="1" />
+                <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Padding="10,0" >
+
+                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Medida Administrativa?" TextColor="Orange" />
+
+                    <input:RadioButtonGroupView Spacing="10" Margin="5">
+                        <input:RadioButton  TextFontSize="16" Text="{Binding MedidaAdministrativa}"  />
+                        <input:RadioButton  TextFontSize="16" Text="{Binding MedidaAdministrativa}"  />
+                        <input:RadioButton  TextFontSize="16" Text="{Binding MedidaAdministrativa}"  />
+                    </input:RadioButtonGroupView>
+                    
+                </StackLayout>
+
             </Grid>
+         
+
         </ScrollView>
             <Button Text="finalizar" Command="{Binding FinalizarCommand}"></Button>
     </StackLayout>
