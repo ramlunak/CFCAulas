@@ -40,35 +40,39 @@
                     </input:RadioButtonGroupView>
 
                     <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Fator agravante?" TextColor="SaddleBrown" />
-                    
-                    <input:RadioButtonGroupView Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand" Margin="5">
-                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador}"  />
-                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador2}"  />
-                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador3}"  />
-                        <input:RadioButton HorizontalOptions="FillAndExpand" TextFontSize="16" Text="{Binding Multiplicador4}"  />
+
+                    <input:RadioButtonGroupView SelectedIndex="{Binding MultipSelectedIndex}" SelectedItemChangedCommand="{Binding MultiplicadorSelectedItemChangedCommand}" Orientation="Horizontal" Spacing="15" HorizontalOptions="FillAndExpand" Margin="5">
+                        <input:RadioButton  HorizontalOptions="FillAndExpand" TextFontSize="16" Value="Multiplicador" Text="{Binding Multiplicador}"  />
+                        <input:RadioButton  HorizontalOptions="FillAndExpand" TextFontSize="16" Value="Multiplicador2" Text="{Binding Multiplicador2}"  />
+                        <input:RadioButton  HorizontalOptions="FillAndExpand" TextFontSize="16" Value="Multiplicador3" Text="{Binding Multiplicador3}"  />
+                        <input:RadioButton  HorizontalOptions="FillAndExpand" TextFontSize="16" Value="Multiplicador4" Text="{Binding Multiplicador4}"  />
                     </input:RadioButtonGroupView>
 
                 </StackLayout>
 
                 <!--MEDIDA-->
-                <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="LightGray" HeightRequest="1" />
-                <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Padding="10,0" >
+                <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="LightGray" HeightRequest="1" Margin="0,10"/>
+                <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Padding="3,0" >
 
                     <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Medida Administrativa?" TextColor="Orange" />
 
-                    <input:RadioButtonGroupView Spacing="10" Margin="5">
-                        <input:RadioButton  TextFontSize="16" Text="{Binding MedidaAdministrativa}"  />
-                        <input:RadioButton  TextFontSize="16" Text="{Binding MedidaAdministrativa}"  />
-                        <input:RadioButton  TextFontSize="16" Text="{Binding MedidaAdministrativa}"  />
+                    <input:RadioButtonGroupView Spacing="15" Margin="5">
+                        <input:RadioButton  TextFontSize="16" Value="{Binding MedidaAdministrativa}" Text="{Binding MedidaAdministrativa}"  />
+                        <input:RadioButton  TextFontSize="16" Value="{Binding MedidaAdministrativa2}" Text="{Binding MedidaAdministrativa2}"  />
+                        <input:RadioButton  TextFontSize="16" Value="{Binding MedidaAdministrativa3}" Text="{Binding MedidaAdministrativa3}"  />
                     </input:RadioButtonGroupView>
                     
                 </StackLayout>
 
-            </Grid>
-         
+            </Grid>         
 
         </ScrollView>
-            <Button Text="finalizar" Command="{Binding FinalizarCommand}"></Button>
+        
+        <StackLayout Margin="15">
+            <Button Text="Continuar"     Command="{Binding FinalizarCommand}"  CommandParameter="Continuar"></Button>
+            <Button Text="Ver resposta"  Command="{Binding FinalizarCommand}" BackgroundColor="ForestGreen" TextColor="White" CommandParameter="VerRespuesta"></Button>
+        </StackLayout>
+          
     </StackLayout>
 
 </ContentPage>

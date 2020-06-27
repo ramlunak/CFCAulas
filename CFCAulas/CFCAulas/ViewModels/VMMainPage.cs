@@ -14,14 +14,13 @@ namespace CFCAulas.ViewModels
 
         public VMMainPage()
         {
+            MultipSelectedIndex = -1;
+
             Regla = Data.DataSource.Reglas.First();
-            //Infraccion = Regla.Infraccion;
-            //Penalidad = Regla.Penalidad;
-            //Multiplicador = Regla.Multiplicador;
-            //MedidaAdministrativa = Regla.MedidaAdministrativa;
-            //Observacion = Regla.Observacion;
+
             GenerarPenalidades();
             GenerarMultiplicador();
+            GenerarMedidaAdministrativa();
         }
 
         public void GenerarPenalidades()
@@ -44,6 +43,28 @@ namespace CFCAulas.ViewModels
                     CurrentPage.DisplayAlert("Erro", ex.ToString(), "Fechar");
             }
         }
+
+        public void GenerarMedidaAdministrativa()
+        {
+            try
+            {
+                var idsMedidaAdministrativa = GenerarListaIds(3, Data.DataSource.MedidaAdministrativas.Count, Regla.IdMedidaAdministrativa);
+
+                MedidaAdministrativa = string.Empty;
+                MedidaAdministrativa2 = string.Empty;
+                MedidaAdministrativa3 = string.Empty;
+
+                MedidaAdministrativa = Data.DataSource.MedidaAdministrativas.Where(x => x.Id == idsMedidaAdministrativa[0]).First().Nombre;
+                MedidaAdministrativa2 = Data.DataSource.MedidaAdministrativas.Where(x => x.Id == idsMedidaAdministrativa[1]).First().Nombre;
+                MedidaAdministrativa3 = Data.DataSource.MedidaAdministrativas.Where(x => x.Id == idsMedidaAdministrativa[2]).First().Nombre;
+            }
+            catch (Exception ex)
+            {
+                if (App.Current.MainPage != null)
+                    CurrentPage.DisplayAlert("Erro", ex.ToString(), "Fechar");
+            }
+        }
+
 
         public void GenerarMultiplicador()
         {
@@ -107,6 +128,8 @@ namespace CFCAulas.ViewModels
 
         #endregion
 
+        #region MEDIDA ADMINISTRATIVA
+
         private string _MedidaAdministrativa { get; set; }
         public string MedidaAdministrativa
         {
@@ -114,7 +137,30 @@ namespace CFCAulas.ViewModels
             set { _MedidaAdministrativa = value; OnPropertyChanged(); }
         }
 
+        private string _MedidaAdministrativa2 { get; set; }
+        public string MedidaAdministrativa2
+        {
+            get { return _MedidaAdministrativa2; }
+            set { _MedidaAdministrativa2 = value; OnPropertyChanged(); }
+        }
+
+        private string _MedidaAdministrativa3 { get; set; }
+        public string MedidaAdministrativa3
+        {
+            get { return _MedidaAdministrativa3; }
+            set { _MedidaAdministrativa3 = value; OnPropertyChanged(); }
+        }
+
+        #endregion
+
         #region MULTIPLICADORES
+
+        private string _MultiplicadorSelected { get; set; }
+        public string MultiplicadorSelected
+        {
+            get { return _MultiplicadorSelected; }
+            set { _MultiplicadorSelected = value; OnPropertyChanged(); }
+        }
 
         private string _Multiplicador { get; set; }
         public string Multiplicador
@@ -144,6 +190,13 @@ namespace CFCAulas.ViewModels
             set { _Multiplicador4 = value; OnPropertyChanged(); }
         }
 
+        private int _MultipSelectedIndex { get; set; }     
+        public int MultipSelectedIndex
+        {
+            get { return _MultipSelectedIndex; }
+            set { _MultipSelectedIndex = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         private string _Observacion { get; set; }
@@ -151,6 +204,20 @@ namespace CFCAulas.ViewModels
         {
             get { return _Observacion; }
             set { _Observacion = value; OnPropertyChanged(); }
+        }
+
+
+        private Boolean _IsChecked { get; set; }
+        public Boolean IsChecked
+        {
+            get { return _IsChecked; }
+            set { _IsChecked = value; OnPropertyChanged(); }
+        }
+
+        public Boolean Validar()
+        {
+            if (Regla.Multiplicador != MultiplicadorSelected) return false;
+            return true;
         }
 
         private ICommand _finalizarCommand;
@@ -165,28 +232,72 @@ namespace CFCAulas.ViewModels
                 return _finalizarCommand;
             }
         }
-
         public async void FinalizarCommandExecute(object parameter)
         {
-            GenerarPenalidades();
-            GenerarMultiplicador();
+            if (parameter.ToString() == "Continuar")
+            {
+                if (Validar())
+                {
+                    CurrentPage.DisplayAlert("👍", "resposta incorreta", "Fechar");
+                }
+                else
+                {
+                    CurrentPage.DisplayAlert("☹", "resposta incorreta", "Fechar");
+                }
+
+                GenerarPenalidades();
+                GenerarMultiplicador();
+                GenerarMedidaAdministrativa();
+                MultipSelectedIndex = -1;
+            }
+            else
+            {
+
+            }
+
+        }
+
+        
+        private ICommand _MultiplicadorSelectedItemChangedCommand;
+        public ICommand MultiplicadorSelectedItemChangedCommand
+        {
+            get
+            {
+                if (_MultiplicadorSelectedItemChangedCommand == null)
+                {
+                    _MultiplicadorSelectedItemChangedCommand = new RelayCommand(MultiplicadorSelectedItemChangedExecute, CanSubmitExecute);
+                }
+                return _MultiplicadorSelectedItemChangedCommand;
+            }
+        }
+        public async void MultiplicadorSelectedItemChangedExecute(object parameter)
+        {
+          
+            var radioButtonGroupView = (Plugin.InputKit.Shared.Controls.RadioButtonGroupView)parameter;
+            if (radioButtonGroupView.SelectedItem.ToString() == "Multiplicador") MultiplicadorSelected = Multiplicador;
+            if (radioButtonGroupView.SelectedItem.ToString() == "Multiplicador2") MultiplicadorSelected = Multiplicador2;
+            if (radioButtonGroupView.SelectedItem.ToString() == "Multiplicador3") MultiplicadorSelected = Multiplicador3;
+            if (radioButtonGroupView.SelectedItem.ToString() == "Multiplicador4") MultiplicadorSelected = Multiplicador4;
         }
 
         public List<int> GenerarListaIds(int Cantidad, int MaxRange, int Incluir = 0)
         {
-                      
+
             List<int> listNumbers = new List<int>();
             var rand = new Random();
             for (int i = 0; i < Cantidad; i++)
             {
+            Generar:
                 int index = rand.Next(1, MaxRange);
-                listNumbers.Add(index);              
+                if (listNumbers.Contains(index))
+                    goto Generar;
+                listNumbers.Add(index);
             }
 
             if (Incluir != 0)
                 if (!listNumbers.Where(x => x == Incluir).Any())
                 {
-                    listNumbers[rand.Next(0, Cantidad-1)] = Incluir;
+                    listNumbers[rand.Next(0, Cantidad - 1)] = Incluir;
                 }
 
             return listNumbers;
